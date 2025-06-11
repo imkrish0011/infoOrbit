@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InfoOrbit - Technology & AI News</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1f2937;
+            text-decoration: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo span {
+            color: #3b82f6;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .nav-tab:hover:not(.active) {
+            color: #667eea;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .main-content {
+            padding: 40px 0;
+        }
+
+        .section-title {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 40px;
+            color: white;
+            text-align: center;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .news-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .news-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .news-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .news-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 30px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            color: #1f2937;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            transition: color 0.3s ease;
+        }
+
+        .news-card:hover .card-title {
+            color: #667eea;
+        }
+
+        .card-summary {
+            color: #6b7280;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        .source-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .source-logo {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .bookmark-btn {
+            padding: 8px;
+            background: transparent;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .bookmark-btn:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+            transform: scale(1.1);
+        }
+
+        .bookmark-btn.bookmarked {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+            color: white;
+        }
+
+        /* Article Detail Page */
+        .article-detail {
+            display: none;
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #374151;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-bottom: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button:hover {
+            background: white;
+            transform: translateX(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .article-header {
+            margin-bottom: 40px;
+        }
+
+        .article-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 64px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .article-title {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            color: white;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-stats {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .article-content {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #374151;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-content p {
+            margin-bottom: 24px;
+        }
+
+        .article-content a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .article-content a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        /* Bookmarks Page */
+        .bookmarks-page {
+            display: none;
+        }
+
+        .empty-bookmarks {
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            margin: 60px 0;
+            opacity: 0.8;
+        }
+
+        .empty-bookmarks::before {
+            content: '📚';
+            display: block;
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .loading::before {
+            content: '⚡';
+            display: inline-block;
+            margin-right: 12px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .error {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Floating Action Button */
+        .floating-bookmark-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .floating-bookmark-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 32px rgba(102, 126, 234, 0.6);
+        }
+
+        .bookmark-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .site-footer {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-align: center;
+            padding: 24px 0;
+            font-size: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 60px;
+        }
+
+        .site-footer p {
+            margin: 6px 0;
+            opacity: 0.85;
+        }
+
+        .site-footer .footer-link {
+            color: #cbd5e1;
+            text-decoration: none;
+        }
+
+        .site-footer .footer-link:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+                padding: 16px 0;
+            }
+
+            .nav-tabs {
+                overflow-x: auto;
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .article-title {
+                font-size: 28px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .main-content {
+                padding: 20px 0;
+            }
+
+            .article-content {
+                padding: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card-content {
+                padding: 20px;
+            }
+
+            .article-content {
+                font-size: 16px;
+            }
+
+            .floating-bookmark-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+
+        .bookmark-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+
+        .collapsed-content {
+            max-height: 100px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .read-more-toggle {
+            display: inline-block;
+            margin-top: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #667eea;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="home.html" class="logo" onclick="goBack()">InfoOrbit</a>
+                <nav class="nav-tabs">
+                    <button class="nav-tab active" onclick="switchTab(this, 'technology')">Technology</button>
+                    <button class="nav-tab" onclick="switchTab(this, 'business')">Business</button>
+                    <button class="nav-tab" onclick="switchTab(this, 'science')">Science</button>
+                    <button class="nav-tab" onclick="switchTab(this, 'sports')">Sports</button>
+                    <button class="nav-tab" onclick="switchTab(this, 'entertainment')">Entertainment</button>
+                    <button class="nav-tab" onclick="switchTab(this, 'general')">General</button>
+                    <button class="nav-tab" onclick="showBookmarks(this)">Bookmarks</button>
+                    <button class="nav-tab" onclick="window.location.href='aboutus.html'">Contact Us</button>
+                    <button class="nav-tab" onclick="window.location.href='about.html'">About Me</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Homepage -->
+        <div class="homepage" id="homepage">
+            <main class="main-content">
+                <h1 class="section-title">Latest Technology News</h1>
+                <div class="news-grid" id="newsGrid">
+                    <div class="loading">Loading latest news...</div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Bookmarks Page -->
+        <div class="bookmarks-page" id="bookmarksPage">
+            <main class="main-content">
+                <h1 class="section-title">Your Bookmarked Articles</h1>
+                <div class="news-grid" id="bookmarksGrid">
+                    <div class="empty-bookmarks">No bookmarked articles yet!</div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Article Detail Page -->
+        <div class="article-detail" id="articleDetail">
+            <button class="back-button" onclick="goBack()">← Back to News</button>
+
+            <article class="article-header">
+                <div class="article-image" id="articleImage">
+                    📰
+                </div>
+
+                <h1 class="article-title" id="articleTitle"></h1>
+                <div class="article-meta">
+                    <div class="source-info">
+                        <div class="source-logo" id="articleSourceLogo"></div>
+                        <span id="articleSource"></span>
+                    </div>
+                    <div class="article-stats">
+                        <span id="articleDate"></span>
+                        <span>•</span>
+                        <span>Technology</span>
+                    </div>
+                </div>
+            </article>
+
+            <div class="article-content" id="articleContent">
+            </div>
+        </div>
+    </div>
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2025 InfoOrbit. All rights reserved.</p>
+            <p>
+                Made with 💙 using NewsAPI &nbsp;|&nbsp;
+                <a href="privacy.html" class="footer-link">Privacy Policy</a><br>
+                <a href="terms.html" class="footer-link">Terms & Conditions</a>
+            </p>
+        </div>
+    </footer>
+
+
+
+    <!-- Floating Bookmark Button -->
+    <button class="floating-bookmark-btn" onclick="showBookmarks()" title="View Bookmarks">
+        📚
+        <span class="bookmark-count" id="bookmarkCount" style="display: none;">0</span>
+    </button>
+
+    <script>
+        const API_KEY = '133b4971e5e64c16bc389db2a9445596';
+        let currentCategory = 'technology';
+        let bookmarkedArticles = [];
+
+        // Load bookmarks from memory (since localStorage isn't available)
+        function loadBookmarks() {
+            return bookmarkedArticles;
+        }
+
+        function saveBookmarks(bookmarks) {
+            bookmarkedArticles = bookmarks;
+            updateBookmarkCount();
+        }
+
+        function updateBookmarkCount() {
+            const count = bookmarkedArticles.length;
+            const countElement = document.getElementById('bookmarkCount');
+            if (count > 0) {
+                countElement.textContent = count;
+                countElement.style.display = 'flex';
+            } else {
+                countElement.style.display = 'none';
+            }
+        }
+
+        async function loadNews(category = 'technology') {
+            const newsGrid = document.getElementById('newsGrid');
+            newsGrid.innerHTML = '<div class="loading">Loading latest news...</div>';
+
+            try {
+                const apiUrl = `https://newsapi.org/v2/top-headlines?category=${category}&language=en&pageSize=12&apiKey=${API_KEY}`;
+                const response = await fetch(apiUrl);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                window.lastArticles = data.articles;
+
+                if (data.status !== 'ok') {
+                    throw new Error(data.message || 'Failed to fetch news');
+                }
+
+                newsGrid.innerHTML = '';
+
+                if (data.articles && data.articles.length > 0) {
+                    data.articles.forEach((article, index) => {
+                        if (article.title && article.title !== '[Removed]') {
+                            const card = createNewsCard(article, index);
+                            newsGrid.appendChild(card);
+                        }
+                    });
+                } else {
+                    newsGrid.innerHTML = '<div class="error">No articles found for this category.</div>';
+                }
+            } catch (error) {
+                console.error('Error fetching news:', error);
+                newsGrid.innerHTML = `<div class="error">Failed to load news: ${error.message}</div>`;
+            }
+        }
+
+        function createNewsCard(article, index, isBookmark = false) {
+            const card = document.createElement('div');
+            card.className = 'news-card';
+            card.onclick = () => openArticle(article);
+
+            const publishedDate = new Date(article.publishedAt);
+            const timeAgo = getTimeAgo(publishedDate);
+            const sourceName = article.source?.name || 'Unknown Source';
+            const sourceInitial = sourceName.charAt(0).toUpperCase();
+
+            const bookmarks = loadBookmarks();
+            const isBookmarked = bookmarks.some(a => a.url === article.url);
+
+            const imageUrl = article.urlToImage || '';
+            const imageDiv = imageUrl
+                ? `<div class="card-image"><img src="${imageUrl}" alt="News image"></div>`
+                : `<div class="card-image">📰</div>`;
+
+            card.innerHTML = `
+                ${imageDiv}
+                <div class="card-content">
+                    <h3 class="card-title">${article.title}</h3>
+                    <p class="card-summary">${article.description || 'No description available.'}</p>
+                    <div class="card-meta">
+                        <div class="source-info">
+                            <div class="source-logo">${sourceInitial}</div>
+                            <span>${sourceName}</span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <span style="font-size: 12px; color: #9ca3af;">${timeAgo}</span>
+                            <button class="bookmark-btn ${isBookmarked ? 'bookmarked' : ''}" 
+                                    onclick="event.stopPropagation(); toggleBookmark(${index}, ${isBookmark})" 
+                                    title="${isBookmarked ? 'Remove bookmark' : 'Add bookmark'}">
+                                <svg width="24" height="24" viewBox="0 0 24 24">
+        <use href="#${isBookmarked ? 'icon-bookmarked' : 'icon-bookmark'}"></use>
+    </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        function openArticle(article) {
+            document.getElementById('homepage').style.display = 'none';
+            document.getElementById('bookmarksPage').style.display = 'none';
+            document.getElementById('articleDetail').style.display = 'block';
+
+            document.getElementById('articleTitle').textContent = article.title;
+            document.getElementById('articleSource').textContent = article.source?.name || 'Unknown Source';
+            document.getElementById('articleSourceLogo').textContent = (article.source?.name || 'U').charAt(0).toUpperCase();
+            document.getElementById('articleDate').textContent = new Date(article.publishedAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            const articleImage = article.urlToImage
+                ? `<img src="${article.urlToImage}" alt="News Image">`
+                : `📰`;
+            document.getElementById('articleImage').innerHTML = articleImage;
+
+            let content = '';
+            if (article.content && article.content !== '[Removed]') {
+                content = `<p>${article.content.replace(/\[.*?\]/g, '').trim()}</p>`;
+            } else if (article.description) {
+                content = `<p>${article.description}</p>`;
+            } else {
+                content = '<p>Full article content not available. Please visit the original source for more details.</p>';
+            }
+
+            if (article.url) {
+                content += `
+        <iframe src="${article.url}" style="width:100%; height:80vh; border:none; border-radius:12px; margin-top:20px;"></iframe>
+        <p style="margin-top: 12px;"><a href="${article.url}" target="_blank" style="color:#667eea; font-weight:600;">Read full article at source →</a></p>
+    `;
+            }
+
+            document.getElementById('articleContent').innerHTML = `
+    <div class="collapsed-content" id="fullContent">${content}</div>
+    <div class="read-more-toggle" onclick="toggleReadMore(this)">Read more</div>
+`;
+            window.scrollTo(0, 0);
+        }
+
+        function goBack() {
+            document.getElementById('homepage').style.display = 'block';
+            document.getElementById('bookmarksPage').style.display = 'none';
+            document.getElementById('articleDetail').style.display = 'none';
+
+            // Reset active tab
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector('.nav-tab').classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        function toggleBookmark(index, isFromBookmarkPage = false) {
+            const bookmarks = loadBookmarks();
+            let article;
+
+            if (isFromBookmarkPage) {
+                article = bookmarks[index];
+            } else {
+                article = window.lastArticles[index];
+            }
+
+            const existingIndex = bookmarks.findIndex(a => a.url === article.url);
+
+            if (existingIndex !== -1) {
+                bookmarks.splice(existingIndex, 1);
+                showNotification("Bookmark removed!", "🗑️");
+            } else {
+                bookmarks.push(article);
+                showNotification("Article bookmarked!", "🔖");
+            }
+
+            saveBookmarks(bookmarks);
+
+            const allCards = document.querySelectorAll('.news-card');
+            const card = allCards[index];
+            if (card) {
+                const btn = card.querySelector('.bookmark-btn');
+                if (btn) {
+                    btn.classList.toggle('bookmarked');
+                    const useTag = btn.querySelector('use');
+                    if (useTag) {
+                        useTag.setAttribute('href', btn.classList.contains('bookmarked') ? '#icon-bookmarked' : '#icon-bookmark');
+                    }
+                }
+            }
+
+
+            // Refresh current view
+            if (document.getElementById('bookmarksPage').style.display !== 'none') {
+                loadBookmarksPage();
+            }
+        }
+
+        function showBookmarks(tabElement = null) {
+            document.getElementById('homepage').style.display = 'none';
+            document.getElementById('bookmarksPage').style.display = 'block';
+            document.getElementById('articleDetail').style.display = 'none';
+
+            // Update active tab
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            if (tabElement) {
+                tabElement.classList.add('active');
+            }
+
+            loadBookmarksPage();
+            window.scrollTo(0, 0);
+        }
+
+        function loadBookmarksPage() {
+            const bookmarksGrid = document.getElementById('bookmarksGrid');
+            const bookmarks = loadBookmarks();
+
+            if (bookmarks.length === 0) {
+                bookmarksGrid.innerHTML = '<div class="empty-bookmarks">No bookmarked articles yet!<br><span style="font-size:16px; opacity:0.7;">Browse news and bookmark articles you want to read later.</span></div>';
+                return;
+            }
+
+            bookmarksGrid.innerHTML = '';
+            bookmarks.forEach((article, index) => {
+                const card = createNewsCard(article, index, true);
+                bookmarksGrid.appendChild(card);
+            });
+        }
+
+        function switchTab(tab, category) {
+            if (category === 'bookmarks') {
+                showBookmarks(tab);
+                return;
+            }
+
+            document.getElementById('homepage').style.display = 'block';
+            document.getElementById('bookmarksPage').style.display = 'none';
+            document.getElementById('articleDetail').style.display = 'none';
+
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            currentCategory = category;
+
+            const categoryTitles = {
+                technology: 'Latest Technology News',
+                business: 'Business News',
+                science: 'Science News',
+                general: 'General News',
+                sports: 'Sports News',
+                entertainment: 'Entertainment News'
+            };
+
+            document.querySelector('.section-title').textContent = categoryTitles[category] || 'Latest News';
+            loadNews(category);
+        }
+
+        function getTimeAgo(date) {
+            const now = new Date();
+            const diffInMinutes = Math.floor((now - date) / (1000 * 60));
+
+            if (diffInMinutes < 60) {
+                return `${diffInMinutes}m ago`;
+            } else if (diffInMinutes < 1440) {
+                return `${Math.floor(diffInMinutes / 60)}h ago`;
+            } else {
+                return `${Math.floor(diffInMinutes / 1440)}d ago`;
+            }
+        }
+
+        function showNotification(message, emoji) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 30px;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                color: #333;
+                padding: 16px 24px;
+                border-radius: 12px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+                z-index: 1001;
+                font-weight: 600;
+                transform: translateX(400px);
+                transition: all 0.3s ease;
+            `;
+            notification.innerHTML = `${emoji} ${message}`;
+
+            document.body.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+
+        function toggleReadMore(btn) {
+            const content = document.getElementById('fullContent');
+            const isCollapsed = content.classList.toggle('collapsed-content');
+            btn.textContent = isCollapsed ? 'Read more' : 'Read less';
+        }
+
+
+        // Initialize the app
+        window.addEventListener('DOMContentLoaded', () => {
+            loadNews('technology');
+            updateBookmarkCount();
+        });
+
+        // Handle browser back button
+        window.addEventListener('popstate', (e) => {
+            goBack();
+        });
+    </script>
+
+    <svg style="display: none;">
+        <symbol id="icon-bookmark" viewBox="0 0 24 24">
+            <path d="M6 4c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2v18l-7-3-7 3V4z" fill="none" stroke="currentColor"
+                stroke-width="2" />
+        </symbol>
+        <symbol id="icon-bookmarked" viewBox="0 0 24 24">
+            <path d="M6 4c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2v18l-7-3-7 3V4z" fill="currentColor" />
+        </symbol>
+    </svg>
+
+</body>
+
+</html>

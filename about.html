@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - InfoOrbit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1f2937;
+            text-decoration: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #374151;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button:hover {
+            background: white;
+            transform: translateX(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .main-content {
+            padding: 40px 0;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .about-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .about-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .about-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1f2937;
+        }
+
+        .card-text {
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .profile-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 50px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            margin: 0 auto 30px;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+            font-weight: 700;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .profile-name {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+
+        .profile-title {
+            font-size: 18px;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .profile-description {
+            font-size: 16px;
+            color: #6b7280;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tech-stack {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 60px;
+        }
+
+        .tech-stack-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #1f2937;
+            text-align: center;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .tech-item {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .tech-item:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .tech-emoji {
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .tech-name {
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .contact-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .contact-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+
+        .contact-text {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .contact-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .site-footer {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-align: center;
+            padding: 24px 0;
+            font-size: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 60px;
+        }
+
+        .site-footer p {
+            margin: 6px 0;
+            opacity: 0.85;
+        }
+
+        .site-footer .footer-link {
+            color: #cbd5e1;
+            text-decoration: none;
+        }
+
+        .site-footer .footer-link:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .about-card, .profile-section, .tech-stack, .contact-section {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .about-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .about-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+                padding: 16px 0;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .about-card, .profile-section, .tech-stack, .contact-section {
+                padding: 30px;
+            }
+
+            .profile-name {
+                font-size: 28px;
+            }
+
+            .tech-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .main-content {
+                padding: 20px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .about-card, .profile-section, .tech-stack, .contact-section {
+                padding: 20px;
+            }
+
+            .hero-title {
+                font-size: 28px;
+            }
+
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="home.html" class="logo">InfoOrbit</a>
+                <a href="home.html" class="back-button">
+                    ← Back to Home
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <h1 class="hero-title">About InfoOrbit</h1>
+                <p class="hero-subtitle">
+                    Your gateway to the latest news and insights from around the world, 
+                    crafted with passion and powered by modern technology.
+                </p>
+            </section>
+
+            <!-- About Cards -->
+            <section class="about-grid">
+                <div class="about-card">
+                    <span class="card-icon">🚀</span>
+                    <h2 class="card-title">Our Mission</h2>
+                    <p class="card-text">
+                        To deliver the latest news and information in a clean, modern, and user-friendly interface. 
+                        InfoOrbit aims to keep you informed about technology, business, science, and more, 
+                        all in one convenient platform.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <span class="card-icon">💡</span>
+                    <h2 class="card-title">Why InfoOrbit?</h2>
+                    <p class="card-text">
+                        Built as a learning project to explore modern web development, API integration, 
+                        and responsive design. This platform showcases how powerful web technologies 
+                        can create engaging user experiences.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <span class="card-icon">🌐</span>
+                    <h2 class="card-title">Global Perspective</h2>
+                    <p class="card-text">
+                        Bringing you news from trusted sources worldwide, with real-time updates 
+                        and a focus on the stories that matter most in our rapidly evolving digital age.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section class="profile-section">
+                <div class="profile-avatar">
+                    <img src="self_pic.jpg" alt="Krish Sharma" onerror="this.style.display='none'; this.parentNode.innerHTML='KS';">
+                </div>
+                <h2 class="profile-name">Krish Sharma</h2>
+                <p class="profile-title">Student & Web Developer</p>
+                <p class="profile-description">
+                    I'm a passionate student from India with a keen interest in web development and technology. 
+                    InfoOrbit is my side project where I explore the exciting world of APIs, backend integration, 
+                    and modern frontend design. Through this project, I'm learning how different technologies 
+                    work together to create seamless user experiences. My goal is to build practical applications 
+                    that solve real-world problems while continuously expanding my technical skills.
+                </p>
+            </section>
+
+            <!-- Tech Stack -->
+            <section class="tech-stack">
+                <h2 class="tech-stack-title">Built With</h2>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <span class="tech-emoji">🌐</span>
+                        <div class="tech-name">HTML5 & CSS3</div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-emoji">⚡</span>
+                        <div class="tech-name">JavaScript ES6+</div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-emoji">🔗</span>
+                        <div class="tech-name">NewsAPI</div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-emoji">📱</span>
+                        <div class="tech-name">Responsive Design</div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-emoji">✨</span>
+                        <div class="tech-name">Modern UI/UX</div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-emoji">🎨</span>
+                        <div class="tech-name">Glassmorphism</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="contact-section">
+                <h2 class="contact-title">Get In Touch</h2>
+                <p class="contact-text">
+                    Have feedback, suggestions, or just want to connect? I'd love to hear from you!
+                </p>
+                <div class="contact-links">
+                    <a href="aboutus.html" class="contact-link" onclick="showMessage()">
+                        💬 Send Feedback
+                    </a>
+                    <a href="https://github.com/imkrish0011" class="contact-link" target="_blank">
+                        🔗 GitHub
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2025 InfoOrbit. All rights reserved.</p>
+            <p>
+                Made with 💙 by Krish Sharma &nbsp;|&nbsp;
+                <a href="privacy.html" class="footer-link">Privacy Policy</a><br>
+                <a href="terms.html" class="footer-link">Terms & Conditions</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function showMessage() {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 30px;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                color: #333;
+                padding: 20px 30px;
+                border-radius: 12px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+                z-index: 1001;
+                font-weight: 600;
+                transform: translateX(400px);
+                transition: all 0.3s ease;
+                max-width: 300px;
+            `;
+            notification.innerHTML = `
+                💌 Thanks for your interest!<br>
+                <span style="font-size: 14px; opacity: 0.8;">Feedback feature coming soon!</span>
+            `;
+
+            document.body.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+
+            // Remove after 4 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 4000);
+        }
+
+        // Add smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add loading animation to cards
+        window.addEventListener('load', () => {
+            const cards = document.querySelectorAll('.about-card, .profile-section, .tech-stack, .contact-section');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+
+</html>
