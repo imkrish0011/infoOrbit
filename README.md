@@ -34,3 +34,17 @@
 ---
 
 ## 📂 Folder Structure
+ InfoOrbit/
+├── home.html
+├── about.html
+├── aboutus.html
+├── privacy.html
+├── terms.html
+├── assets/               #all images and icons
+│   └── self_pic.jpg
+│   └── twitter.png
+│   └── instagram.png
+│   └── reddit.png
+│   └── linkdin.png
+│   └── ...
+├── README.md
