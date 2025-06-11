@@ -29,23 +29,6 @@
 | CSS3     |          | Responsive Design |
 | JavaScript ES6+ |    | Animations & Hover Effects |
 
----
-
----
-
-## 📂 Folder Structure
- InfoOrbit/
-├── home.html
-├── about.html
-├── aboutus.html
-├── privacy.html
-├── terms.html
-├── assets/                # All images and icons
-│   ├── self_pic.jpg
-│   ├── twitter.png
-│   ├── instagram.png
-│   ├── reddit.png
-│   ├── linkdin.png
-│   └── ...
-├── README.md
+--
+> Thanks for checking and reading this file
 
